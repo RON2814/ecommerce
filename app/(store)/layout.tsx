@@ -34,7 +34,7 @@ export default function RootLayout({
           <main>
             <Header />
             {/* filler */}
-            <div className="h-16" />
+            <div className="h-40 sm:h-16" />
             {children}
           </main>
 

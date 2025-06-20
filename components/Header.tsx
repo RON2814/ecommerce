@@ -10,9 +10,13 @@ import {
 import Link from "next/link";
 import Form from "next/form";
 import { PackageIcon, TrolleyIcon } from "@sanity/icons";
+import useCartStore from "@/app/(store)/store/store";
 
 function Header() {
   const { user } = useUser();
+  const itemCount = useCartStore((state) =>
+    state.items.reduce((total, item) => total + item.quantity, 0)
+  );
 
   // passkey removed due to complexity :D
   // const createClerkPasskey = async () => {
@@ -51,8 +55,11 @@ function Header() {
             href={"/cart"}
             className="flex-1 relative flex justify-center sm:justify-start sm:flex-none items-center space-x-2 bg-slate-500 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded"
           >
-            <TrolleyIcon />
+            <TrolleyIcon className="w-6 h-6" />
             {/* Span item count once global state is implemented */}
+            <span className="absolute -top-2 -right-4 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
+              {itemCount}
+            </span>
             <span>Cart</span>
           </Link>
 
