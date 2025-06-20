@@ -7,6 +7,7 @@ import Image from "next/image";
 import { imageUrl } from "@/lib/imageUrl";
 import { useEffect, useState } from "react";
 import Loader from "@/components/Loader";
+import { Trash2 } from "lucide-react";
 import {
   createCheckoutSession,
   Metadata,
@@ -14,6 +15,9 @@ import {
 
 function CartPage() {
   const groupedItems = useCartStore((state) => state.getGroupedItems());
+  const removeCompletelyFromCart = useCartStore(
+    (state) => state.removeCompletelyFromCart
+  );
   const { isSignedIn } = useAuth();
   const { user } = useUser();
   const router = useRouter();
@@ -84,7 +88,7 @@ function CartPage() {
                       alt={item.product.name ?? "Product Image"}
                       width={96}
                       height={96}
-                      className="w-full h-full object-cover rounded"
+                      className="w-full h-fit object-cover rounded"
                     />
                   )}
                 </div>
@@ -98,7 +102,14 @@ function CartPage() {
                   </p>
                 </div>
               </div>
-              <div className="flex items-center ml-4 flex-shrink-0">
+              <div className="flex items-center ml-4 flex-shrink-0 space-x-4">
+                <button
+                  onClick={() => removeCompletelyFromCart(item.product._id)}
+                  className="text-red-500 hover:text-red-700 text-sm font-medium flex items-center"
+                >
+                  <Trash2 size={16} className="mr-1" />
+                  Remove
+                </button>
                 <AddToCartButton product={item.product} />
               </div>
             </div>
@@ -124,7 +135,7 @@ function CartPage() {
             <button
               onClick={handleCheckout}
               disabled={isLoading}
-              className="mt-4 w-full bg-blue-400 text-white px-4 py-2 rounded hover:bg-blue-500 disabled:bg-gray-400"
+              className="mt-4 w-full bg-slate-500 text-white px-4 py-2 rounded hover:bg-slate-600 disabled:bg-gray-400"
             >
               {isLoading ? "Processing..." : "Checkout"}
             </button>

@@ -53,7 +53,7 @@ export async function POST(req: NextRequest) {
     }
   }
 
-  return NextResponse.json({ received: true }, { status: 200 });
+  return NextResponse.json({ received: true });
 }
 
 async function createOrderInSanity(session: Stripe.Checkout.Session) {

@@ -11,6 +11,7 @@ interface CartState {
   items: CartItem[];
   addItem: (product: Product) => void;
   removeItem: (productId: string) => void;
+  removeCompletelyFromCart: (productId: string) => void; // New function
   clearCart: () => void;
   getTotalPrice: () => number;
   getItemCount: (productId: string) => number;
@@ -50,6 +51,11 @@ const useCartStore = create<CartState>()(
             }
             return acc;
           }, [] as CartItem[]),
+        })),
+      // New function to completely remove a product from cart regardless of quantity
+      removeCompletelyFromCart: (productId) =>
+        set((state) => ({
+          items: state.items.filter((item) => item.product._id !== productId),
         })),
       clearCart: () => set({ items: [] }),
       getTotalPrice: () => {

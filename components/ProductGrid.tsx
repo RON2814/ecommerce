@@ -13,7 +13,7 @@ function ProductGrid({ products }: { products: Product[] }) {
             initial={{ opacity: 0.2 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="flex justify-center"
+            className="h-full w-full" // Changed from flex justify-center to full width/height
           >
             <ProductThumbnail key={product._id} product={product} />
           </motion.div>

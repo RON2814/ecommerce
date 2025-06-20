@@ -1,5 +1,4 @@
 import AddToCartButton from "@/components/AddToCartButton";
-import { Button } from "@/components/ui/button";
 import { imageUrl } from "@/lib/imageUrl";
 import { getProductBySlug } from "@/sanity/lib/products/getProductBySlug";
 import { PortableText } from "next-sanity";
@@ -28,15 +27,20 @@ async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
     <div className="container mx-auto px-4 py-8">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div
-          className={`relative aspect-square overflow-hidden rounded-lg shadow-lg ${isOutOfStock ? "opacity-50" : ""}`}
+          className={`relative rounded-lg shadow-lg ${
+            isOutOfStock ? "opacity-50" : ""
+          } flex items-center justify-center h-[400px] max-h-[400px]`}
         >
           {product.image && (
-            <Image
-              src={imageUrl(product.image).url()}
-              alt={product.name ?? "Product Image"}
-              fill
-              className="object-contain transition duration-300 hover:scale-105"
-            />
+            <div className="relative w-full h-full max-w-[350px] max-h-[350px] mx-auto">
+              <Image
+                src={imageUrl(product.image).url()}
+                alt={product.name ?? "Product Image"}
+                fill
+                className="object-contain transition duration-300 hover:scale-105"
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
+            </div>
           )}
           {isOutOfStock && (
             <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
@@ -59,7 +63,6 @@ async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
           </div>
           <div className="mt-6">
             <AddToCartButton product={product} disabled={isOutOfStock} />
-            <Button>Add to Cart</Button>
           </div>
         </div>
       </div>

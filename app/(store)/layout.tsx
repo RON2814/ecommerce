@@ -42,7 +42,7 @@ export default async function RootLayout({
           )}
           <main>
             <Header />
-            <div className="h-40 sm:h-16" />
+            <div className="h-40 sm:h-14 bg-slate-100" />
             {/* spacer fill */}
             {children}
           </main>
