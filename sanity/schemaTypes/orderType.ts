@@ -13,7 +13,7 @@ export const orderType = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "stripeCheckoutSeessionId",
+      name: "stripeCheckoutSessionId",
       title: "Stripe Checkout Session ID",
       type: "string",
     }),
@@ -112,7 +112,7 @@ export const orderType = defineType({
       options: {
         list: [
           { title: "Pending", value: "pending" },
-          { title: "Processing", value: "processing" },
+          { title: "Paid", value: "paid" },
           { title: "Shipped", value: "shipped" },
           { title: "Delivered", value: "delivered" },
           { title: "Cancelled", value: "cancelled" },
