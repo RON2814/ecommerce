@@ -69,7 +69,7 @@ function Header() {
       <nav className="flex justify-between items-center shadow-md px-4 py-2 bg-white">
         <Link
           href={"/"}
-          className="text-2xl font-bold text-blue-900 hover:opacity-50 cursor-pointer mx-auto sm:mx-0"
+          className="text-2xl font-bold text-slate-500 hover:text-blue-400 cursor-pointer mx-2"
         >
           CLift
         </Link>
@@ -81,8 +81,8 @@ function Header() {
               href={link.path}
               className={`${
                 pathname === link.path
-                  ? "text-slate-800 border-b border-slate-800 border-spacing-y-0.5"
-                  : "text-slate-600 hover:text-slate-400"
+                  ? "text-blue-500 underline underline-offset-8"
+                  : "text-slate-600 hover:text-blue-400"
               } py-2 px-1 transition-colors duration-300`}
               key={link.path}
             >
@@ -96,17 +96,17 @@ function Header() {
           {/* Search button - visible on both mobile and desktop */}
           <button
             onClick={() => setShowSearch(!showSearch)}
-            className="text-slate-600 hover:text-slate-400"
+            className="text-slate-600 hover:text-blue-400"
             aria-label="Search"
           >
-            <SearchIcon className="w-6 h-6" />
+            <SearchIcon className="w-7 h-7" />
           </button>
 
           <Link
             href="/cart"
-            className="relative flex items-center text-slate-600 hover:text-slate-400"
+            className="relative flex items-center text-slate-600 hover:text-blue-400"
           >
-            <TrolleyIcon className="w-8 h-8" />
+            <TrolleyIcon className="w-7 h-7" />
             {itemCount > 0 && (
               <span className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
                 {itemCount}
@@ -115,18 +115,8 @@ function Header() {
           </Link>
 
           {/* User section - visible on desktop */}
-          <div className="hidden md:flex items-center">
+          <div className="hidden md:flex items-center space-x-4">
             <ClerkLoaded>
-              <SignedIn>
-                <Link
-                  href="/orders"
-                  className="flex items-center space-x-2 bg-slate-500 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded mr-2"
-                >
-                  <PackageIcon className="w-5 h-5" />
-                  <span>My orders</span>
-                </Link>
-              </SignedIn>
-
               {user ? (
                 <div className="flex items-center space-x-2">
                   <UserButton />
@@ -136,8 +126,21 @@ function Header() {
                   </div>
                 </div>
               ) : (
-                <SignInButton />
+                <SignInButton>
+                  <button className="border border-slate-600 hover:text-blue-500 hover:border-blue-500 py-2 px-4 rounded">
+                    Sign In
+                  </button>
+                </SignInButton>
               )}
+              <SignedIn>
+                <Link
+                  href="/orders"
+                  className="flex items-center space-x-2 border border-slate-600 hover:bg-blue-300 py-2 px-4 rounded"
+                >
+                  <PackageIcon className="w-5 h-5" />
+                  <span>My orders</span>
+                </Link>
+              </SignedIn>
             </ClerkLoaded>
           </div>
 
@@ -161,7 +164,7 @@ function Header() {
           ref={searchRef}
           className="absolute top-full left-0 right-0 bg-white shadow-md p-3 z-50 transition-all duration-300 ease-in-out"
         >
-          <Form action="/search" className="flex">
+          <Form action="/search" className="flex mx-4">
             <input
               type="text"
               name="query"
@@ -170,7 +173,7 @@ function Header() {
             />
             <button
               type="submit"
-              className="bg-slate-500 text-white px-4 py-2 rounded-r hover:bg-slate-700 transition-colors duration-300"
+              className="px-4 py-2 rounded-r border border-slate-500 hover:text-blue-500 hover:border-blue-500 transition-colors duration-300"
             >
               Search
             </button>
@@ -190,8 +193,8 @@ function Header() {
                 href={link.path}
                 className={`${
                   pathname === link.path
-                    ? "text-slate-800 font-semibold"
-                    : "text-slate-600 hover:text-slate-400"
+                    ? "text-blue-500 underline underline-offset-8"
+                    : "text-slate-600 hover:text-blue-400"
                 } py-2 transition-colors duration-300`}
                 key={link.path}
                 onClick={() => setIsOpen(false)} // Close menu on link click

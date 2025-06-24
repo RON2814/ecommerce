@@ -9,11 +9,13 @@ function ProductThumbnail({ product }: { product: Product }) {
   return (
     <Link
       href={`/product/${product.slug?.current}`}
-      className={`group flex flex-col bg-white rounded-lg border border-slate-200 shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden ${isOutOfStock ? "opacity-50 cursor-not-allowed" : ""}`}
+      className={`group flex flex-col bg-white rounded-2xl p-4 text-center shadow transition-transform transform hover:shadow-xl hover:-translate-y-1 hover:scale-105 duration-300 sm:min-h-[10vh] sm:min-w-[22vw] ${
+        isOutOfStock ? "opacity-50 cursor-not-allowed" : ""
+      }`}
     >
-      {/* Fixed height container for consistent sizing */}
-      <div className="relative w-full h-[250px] flex items-center justify-center bg-white p-4">
-        <div className="relative w-full h-full max-w-[180px] max-h-[180px]">
+      {/* Image container with gradient background */}
+      <div className="h-50 w-full rounded-xl mb-4 bg-gradient-to-br from-pink-200 to-blue-200 flex items-center justify-center relative">
+        <div className="relative w-[160px] h-[160px]">
           {product.image && (
             <Image
               src={imageUrl(product.image).url()}
@@ -30,21 +32,29 @@ function ProductThumbnail({ product }: { product: Product }) {
           </div>
         )}
       </div>
-      <div className="p-4 min-h-[150px] flex flex-col">
-        <h2 className="text-lg font-semibold text-gray-800">{product.name}</h2>
-        <p className="mt-2 text-sm text-gray-600 line-clamp-2 flex-grow">
-          {product.description
-            ?.map((block) =>
-              block._type === "block"
-                ? block.children?.map((child) => child.text).join("")
-                : ""
-            )
-            .join(" ") || "No description available."}
-        </p>
-        <p className="mt-2 text-lg font-bold text-gray-900">
-          ₱{product.price?.toFixed(2)}
-        </p>
-      </div>
+
+      {/* Product Name */}
+      <h2 className="text-lg font-bold text-blue-900">{product.name}</h2>
+
+      {/* Description (optional, but you can keep it as needed) */}
+      {/* <p className="mt-2 text-sm text-gray-600 line-clamp-2 flex-grow">
+        {product.description
+          ?.map((block) =>
+            block._type === "block"
+              ? block.children?.map((child) => child.text).join("")
+              : ""
+          )
+          .join(" ") || "No description available."}
+      </p> */}
+
+      {/* Price (optional, add this if you want to show it) */}
+      <p className="mt-2 text-lg font-semibold text-gray-700">
+        ₱
+        {product.price?.toLocaleString("en-PH", {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        })}
+      </p>
     </Link>
   );
 }

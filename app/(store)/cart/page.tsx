@@ -66,7 +66,10 @@ function CartPage() {
   };
 
   return (
-    <div className="container mx-auto p-4 max-w-6xl">
+    <div
+      className="container mx-auto p-4 max-w-6xl min-h-[7
+    0vh]"
+    >
       <h1 className="text-2xl font-bold mb-4">Your Cart</h1>
       <div className="flex flex-col lg:flex-row gap-8">
         <div className="flex-grow">
@@ -116,7 +119,7 @@ function CartPage() {
           ))}
         </div>
 
-        <div className="w-full lg:w-80 lg:sticky lg:top-4 h-fit bg-white p-6 border rounded order-first lg:order-last fixed bottom-0 left-0 lg:left-auto">
+        <div className="w-full lg:w-80 lg:sticky lg:top-20 h-fit bg-white p-6 border rounded order-first lg:order-last fixed bottom-0 left-0 lg:left-auto">
           <h3 className="text-xl font-semibold">Order Summary</h3>
           <div className="mt-4 space-y-2">
             <p className="flex justify-between">
