@@ -88,7 +88,7 @@ function CartPage() {
                       alt={item.product.name ?? "Product Image"}
                       width={96}
                       height={96}
-                      className="w-full h-fit object-cover rounded"
+                      className="w-full h-full object-contain rounded"
                     />
                   )}
                 </div>

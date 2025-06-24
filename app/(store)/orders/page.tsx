@@ -106,7 +106,7 @@ async function OrdersPage() {
                               <Image
                                 src={imageUrl(product.product.image).url()}
                                 alt={product.product?.name ?? "Product Image"}
-                                className="object-cover"
+                                className="object-contain"
                                 fill
                               />
                             </div>
