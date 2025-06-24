@@ -68,8 +68,8 @@ function Header() {
     <header className="fixed top-0 left-0 right-0 z-[9999] w-full">
       <nav className="flex justify-between items-center shadow-md px-4 py-2 bg-white">
         <Link
-          href="/"
-          className="text-2xl font-bold text-slate-500 hover:opacity-50"
+          href={"/"}
+          className="text-2xl font-bold text-blue-900 hover:opacity-50 cursor-pointer mx-auto sm:mx-0"
         >
           CLift
         </Link>
