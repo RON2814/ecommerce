@@ -187,7 +187,7 @@ function Header() {
           ref={menuRef}
           className="absolute top-full left-0 right-0 bg-white shadow-md z-50"
         >
-          <div className="flex flex-col space-y-2 p-4">
+          <div className="flex flex-col space-y-2 py-4 px-6">
             {links.map((link) => (
               <Link
                 href={link.path}
@@ -203,30 +203,34 @@ function Header() {
               </Link>
             ))}
 
-            <div className="border-t border-slate-200 pt-2 mt-2">
+            <div className="border-t border-slate-200 pt-2 mt-2 space-y-4">
               <ClerkLoaded>
+                {user ? (
+                  <div className="flex items-center space-x-4">
+                    <UserButton />
+                    <div className="sm:hidden block text-xs">
+                      <p className="text-slate-400">Welcome Back</p>
+                      <p className="font-bold">{user.fullName}!</p>
+                    </div>
+                  </div>
+                ) : (
+                  <SignInButton>
+                    <button className="text-slate-600 hover:text-blue-400 py-2 rounded">
+                      Sign In
+                    </button>
+                  </SignInButton>
+                )}
+
                 <SignedIn>
                   <Link
                     href="/orders"
-                    className="flex items-center space-x-2 bg-slate-500 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded"
+                    className="flex items-center space-x-2 border border-slate-500 text-slate-500 hover:border-blue-500 hover:text-blue-500 py-2 px-4 rounded"
                     onClick={() => setIsOpen(false)} // Close menu on link click
                   >
                     <PackageIcon className="w-5 h-5" />
                     <span>My orders</span>
                   </Link>
                 </SignedIn>
-
-                {user ? (
-                  <div className="flex items-center space-x-2">
-                    <UserButton />
-                    <div className="hidden sm:block text-xs">
-                      <p className="text-slate-400">Welcome Back</p>
-                      <p className="font-bold">{user.fullName}!</p>
-                    </div>
-                  </div>
-                ) : (
-                  <SignInButton />
-                )}
               </ClerkLoaded>
             </div>
           </div>
