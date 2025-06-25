@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useAuth, useUser, SignInButton } from "@clerk/nextjs";
 import { useRef, useState } from "react";
 import { CreditCard } from "lucide-react";
@@ -18,7 +17,6 @@ interface CheckoutButtonProps {
 function CheckoutButton({ product, disabled }: CheckoutButtonProps) {
   const { isSignedIn } = useAuth();
   const { user } = useUser();
-  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const signInRef = useRef<HTMLButtonElement>(null); // 👈 ref for modal trigger
 
