@@ -37,8 +37,8 @@ function AboutPage() {
                 fashion that empowers individuals to express themselves
                 confidently. We believe style should be accessible to everyone,
                 which drives us to create clothing that combines comfort,
-                quality, and contemporary design at prices that don't break the
-                bank.
+                quality, and contemporary design at prices that don&apos;t break
+                the bank.
               </p>
             </div>
             <div className="space-y-4">
@@ -135,8 +135,8 @@ function AboutPage() {
                 Sustainability
               </h3>
               <p className="text-gray-600">
-                We're committed to reducing our environmental impact through
-                responsible practices.
+                We&apos;re committed to reducing our environmental impact
+                through responsible practices.
               </p>
             </div>
 
