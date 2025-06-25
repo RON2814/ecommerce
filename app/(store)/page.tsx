@@ -72,7 +72,7 @@ export default async function Home() {
         </Link>
 
         <Link
-          href={"/categories/dresses"}
+          href={"/categories/dress"}
           className="bg-blue-100 rounded-3xl p-6 flex flex-col items-center relative transition-transform transform hover:scale-105 hover:shadow-xl duration-300 cursor-pointer"
         >
           <Image
@@ -92,7 +92,7 @@ export default async function Home() {
       {/* Promo Grid Section */}
       <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <Link
-          href={"/categories/jackets"}
+          href={"/categories/jacket"}
           className="bg-pink-100 rounded-3xl p-6 text-center transition-transform transform hover:scale-105 hover:shadow-xl duration-300 cursor-pointer"
         >
           <Image
