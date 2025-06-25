@@ -1,13 +1,13 @@
-import { Category, Product } from "@/sanity.types";
+import { Product } from "@/sanity.types";
 import ProductGrid from "./ProductGrid";
 // import { CategorySelectorComponent } from "./ui/category-selector";
 
 interface ProductsViewProps {
   products: Product[];
-  categories: Category[];
+  // categories: Category[];
 }
 
-const ProductsView = ({ products, categories }: ProductsViewProps) => {
+const ProductsView = ({ products }: ProductsViewProps) => {
   return (
     <div className="flex flex-col ">
       {/* Categories */}

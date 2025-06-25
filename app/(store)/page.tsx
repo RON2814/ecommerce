@@ -1,4 +1,6 @@
+// import { imageUrl } from "@/lib/imageUrl";
 import { getLatestProduct } from "@/sanity/lib/products/getLatestProduct";
+import Image from "next/image";
 import Link from "next/link";
 
 export const dynamic = "force-static"; // Force static rendering for this page
@@ -27,7 +29,9 @@ export default async function Home() {
             Shop Now
           </Link>
         </div>
-        <img
+        <Image
+          width={300}
+          height={300}
           src="/images/cap.png"
           alt="Hero"
           className="w-70 sm:w-60 mt-0 sm:mt-0 drop-shadow-[0_6px_6px_rgba(0,0,0,0.3)"
@@ -40,7 +44,9 @@ export default async function Home() {
           href={"/categories/tops"}
           className="bg-cyan-100 rounded-3xl p-6 flex flex-col items-center transition-transform transform hover:scale-105 hover:shadow-xl duration-300 cursor-pointer"
         >
-          <img
+          <Image
+            width={300}
+            height={300}
             src="/images/shirts.png"
             alt="tshirtljsdshuhusvdu"
             className="w-60 mb-4"
@@ -52,7 +58,13 @@ export default async function Home() {
           href={"/categories/bottoms"}
           className="bg-blue-100 rounded-3xl p-6 flex flex-col items-center relative transition-transform transform hover:scale-105 hover:shadow-xl duration-300 cursor-pointer"
         >
-          <img src="/images/pants.png" alt="Camera" className="w-45 mb-4" />
+          <Image
+            width={300}
+            height={300}
+            src="/images/pants.png"
+            alt="Camera"
+            className="w-45 mb-4"
+          />
           {/* <span className="absolute top-4 right-4 bg-yellow-300 text-sm font-bold px-3 py-1 rounded-full">
             50% OFF
           </span> */}
@@ -63,7 +75,13 @@ export default async function Home() {
           href={"/categories/dresses"}
           className="bg-blue-100 rounded-3xl p-6 flex flex-col items-center relative transition-transform transform hover:scale-105 hover:shadow-xl duration-300 cursor-pointer"
         >
-          <img src="/images/red.png" alt="Camera" className="w-34 mb-4" />
+          <Image
+            width={300}
+            height={300}
+            src="/images/red.png"
+            alt="Camera"
+            className="w-34 mb-4"
+          />
           {/* <span className="absolute top-4 right-4 bg-yellow-300 text-sm font-bold px-3 py-1 rounded-full">
             50% OFF
           </span> */}
@@ -77,7 +95,9 @@ export default async function Home() {
           href={"/categories/jackets"}
           className="bg-pink-100 rounded-3xl p-6 text-center transition-transform transform hover:scale-105 hover:shadow-xl duration-300 cursor-pointer"
         >
-          <img
+          <Image
+            width={300}
+            height={300}
             src="/images/jacket.png"
             alt="Jackets & Coats"
             className="w-30 mx-auto mb-3"
@@ -89,7 +109,9 @@ export default async function Home() {
           href={"/categories/shoes"}
           className="bg-red-100 rounded-3xl p-6 text-center transition-transform transform hover:scale-105 hover:shadow-xl duration-300 cursor-pointer"
         >
-          <img
+          <Image
+            width={300}
+            height={300}
             src="/images/shoes.png"
             alt="Smartphone"
             className="w-30 mx-auto mb-3"
@@ -101,7 +123,9 @@ export default async function Home() {
           href={"/categories/accessories"}
           className="bg-red-500 rounded-3xl p-6 text-center transition-transform transform hover:scale-105 hover:shadow-xl duration-300 cursor-pointer"
         >
-          <img
+          <Image
+            width={300}
+            height={300}
             src="/images/watch.png"
             alt="Controller"
             className="w-37 mx-auto mb-3"
@@ -110,7 +134,7 @@ export default async function Home() {
         </Link>
 
         <Link
-          href={`/product/${latestProduct?.slug.current}`}
+          href={`/product/${latestProduct?.slug?.current || ""}`}
           className="bg-white rounded-3xl p-6 transition-transform transform hover:scale-105 hover:shadow-xl duration-300"
         >
           <h3 className="text-xl font-semibold text-blue-900 mb-2">
@@ -134,7 +158,7 @@ export default async function Home() {
 
       {/* Color Showcase & CTA */}
       <section className="grid grid-cols-1 lg:grid-cols-3 gap-6 pt-12">
-        <div className="bg-red-500 rounded-3xl p-8 text-white text-center lg:col-span-1">
+        <div className="bg-red-500 rounded-3xl p-8 text-white text-center lg:col-span-3">
           <h3 className="text-2xl font-bold mb-4">Discover More</h3>
           <p className="mb-4">
             Find trendy outfits, shoes, and accessories curated just for you.
@@ -146,13 +170,15 @@ export default async function Home() {
             Explore
           </Link>
         </div>
-        <div className="lg:col-span-2">
-          <img
-            src="/images/random.jpg" // 👈 Replace with your actual image file
+        {/* <div className="lg:col-span-2">
+          <Image
+            width={300}
+            height={300}
+            src={imageUrl(latestProduct?.image || "").url()} // 👈 Replace with your actual image file
             alt="Summer Banner"
-            className="w-full h-70 rounded-3xl object-cover"
+            className="w-full h-70 rounded-3xl object-contain"
           />
-        </div>
+        </div> */}
       </section>
     </div>
   );
