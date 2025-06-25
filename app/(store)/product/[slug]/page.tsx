@@ -32,7 +32,7 @@ async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
           } flex items-center justify-center h-[400px] max-h-[400px]`}
         >
           {product.image && (
-            <div className="relative w-full max-w-md aspect-square">
+            <div className="relative w-full h-full max-w-[350px] max-h-[350px] mx-auto">
               <Image
                 src={imageUrl(product.image).url()}
                 alt={product.name ?? "Product Image"}
