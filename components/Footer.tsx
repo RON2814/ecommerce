@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 function Footer() {
   return (
     <section className="bg-slate-500 text-white px-20 py-4 shadow-md">
@@ -14,24 +16,24 @@ function Footer() {
 
           {/* Vertical Category Links */}
           <div className="flex flex-col space-y-1 text-white text-sm font-medium">
-            <a href="#shoes" className="hover:underline">
+            <Link href="/categories/shoes" className="hover:underline">
               Shoes
-            </a>
-            <a href="#tshirts" className="hover:underline">
+            </Link>
+            <Link href="/categories/tops" className="hover:underline">
               T-Shirts
-            </a>
-            <a href="#dress" className="hover:underline">
+            </Link>
+            <Link href="/categories/dresses" className="hover:underline">
               Dress
-            </a>
-            <a href="#accessories" className="hover:underline">
+            </Link>
+            <Link href="/categories/accessories" className="hover:underline">
               Accessories
-            </a>
-            <a href="#pants" className="hover:underline">
+            </Link>
+            <Link href="/categories/bottoms" className="hover:underline">
               Pants
-            </a>
-            <a href="#jackets" className="hover:underline">
+            </Link>
+            <Link href="/categories/jackets" className="hover:underline">
               Jackets
-            </a>
+            </Link>
           </div>
         </div>
 
@@ -71,7 +73,7 @@ function Footer() {
               <path d="M12 12.713l11.985-7.466A.998.998 0 0023 4H1a1 1 0 00-.985 1.247L12 12.713z" />
               <path d="M12 14.857L0 7.533V20a1 1 0 001 1h22a1 1 0 001-1V7.533L12 14.857z" />
             </svg>
-            <span>cliftstore@gmail.com</span>
+            <a href="mailto:cliftstore@gmail.com">cliftstore@gmail.com</a>
           </div>
         </div>
       </div>

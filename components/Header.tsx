@@ -96,7 +96,7 @@ function Header() {
           {/* Search button - visible on both mobile and desktop */}
           <button
             onClick={() => setShowSearch(!showSearch)}
-            className="text-slate-600 hover:text-blue-400"
+            className="text-slate-600 hover:text-blue-400 transition-colors duration-300"
             aria-label="Search"
           >
             <SearchIcon className="w-7 h-7" />
@@ -104,7 +104,7 @@ function Header() {
 
           <Link
             href="/cart"
-            className="relative flex items-center text-slate-600 hover:text-blue-400"
+            className="relative flex items-center text-slate-600 hover:text-blue-400 transition-colors duration-300"
           >
             <TrolleyIcon className="w-7 h-7" />
             {itemCount > 0 && (
@@ -127,7 +127,7 @@ function Header() {
                 </div>
               ) : (
                 <SignInButton>
-                  <button className="border border-slate-600 hover:text-blue-500 hover:border-blue-500 py-2 px-4 rounded">
+                  <button className="border border-slate-600 hover:text-blue-500 hover:border-blue-500 py-2 px-4 rounded transition-colors duration-300">
                     Sign In
                   </button>
                 </SignInButton>
@@ -135,7 +135,7 @@ function Header() {
               <SignedIn>
                 <Link
                   href="/orders"
-                  className="flex items-center space-x-2 border border-slate-600 hover:bg-blue-300 py-2 px-4 rounded"
+                  className="flex items-center space-x-2 text-slate-600 border border-slate-600 hover:border-blue-500 hover:text-blue-300 py-2 px-4 rounded transition-colors duration-300"
                 >
                   <PackageIcon className="w-5 h-5" />
                   <span>My orders</span>
@@ -147,7 +147,7 @@ function Header() {
           {/* Mobile menu button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden text-slate-600 hover:text-slate-400"
+            className="md:hidden text-slate-600 hover:text-blue-500 transition-colors duration-300"
           >
             {isOpen ? (
               <CloseIcon className="w-6 h-6" />
@@ -215,7 +215,7 @@ function Header() {
                   </div>
                 ) : (
                   <SignInButton>
-                    <button className="text-slate-600 hover:text-blue-400 py-2 rounded">
+                    <button className="text-slate-600 hover:text-blue-400 py-2 rounded transition-colors duration-300">
                       Sign In
                     </button>
                   </SignInButton>
@@ -224,7 +224,7 @@ function Header() {
                 <SignedIn>
                   <Link
                     href="/orders"
-                    className="flex items-center space-x-2 border border-slate-500 text-slate-500 hover:border-blue-500 hover:text-blue-500 py-2 px-4 rounded"
+                    className="flex items-center space-x-2 border border-slate-500 text-slate-500 hover:border-blue-500 hover:text-blue-500 py-2 px-4 rounded transition-colors duration-300"
                     onClick={() => setIsOpen(false)} // Close menu on link click
                   >
                     <PackageIcon className="w-5 h-5" />

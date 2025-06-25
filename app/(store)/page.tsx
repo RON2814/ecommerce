@@ -1,6 +1,9 @@
 import { getLatestProduct } from "@/sanity/lib/products/getLatestProduct";
 import Link from "next/link";
 
+export const dynamic = "force-static"; // Force static rendering for this page
+export const revalidate = 60; // Revalidate every 60 seconds
+
 export default async function Home() {
   // get latest product from sanity
   const latestProduct = await getLatestProduct();
