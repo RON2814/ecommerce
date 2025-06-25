@@ -1,4 +1,5 @@
 import AddToCartButton from "@/components/AddToCartButton";
+import CheckoutButton from "@/components/CheckoutButton";
 import { imageUrl } from "@/lib/imageUrl";
 import { getProductBySlug } from "@/sanity/lib/products/getProductBySlug";
 import { PortableText } from "next-sanity";
@@ -61,8 +62,9 @@ async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
               )}
             </div>
           </div>
-          <div className="mt-6">
+          <div className="flex space-x-4 justify-center mt-6">
             <AddToCartButton product={product} disabled={isOutOfStock} />
+            <CheckoutButton product={product} disabled={isOutOfStock} />
           </div>
         </div>
       </div>
