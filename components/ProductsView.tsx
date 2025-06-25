@@ -9,7 +9,7 @@ interface ProductsViewProps {
 
 const ProductsView = ({ products }: ProductsViewProps) => {
   return (
-    <div className="flex flex-col ">
+    <div className="flex flex-col w-full">
       {/* Categories */}
       <div className="w-full sm:w-[200px]">
         {/* <CategorySelectorComponent categories={categories} /> */}

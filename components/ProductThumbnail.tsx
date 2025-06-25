@@ -9,7 +9,7 @@ function ProductThumbnail({ product }: { product: Product }) {
   return (
     <Link
       href={`/product/${product.slug?.current}`}
-      className={`group flex flex-col bg-white rounded-2xl p-4 text-center shadow transition-transform transform hover:shadow-xl hover:-translate-y-1 hover:scale-105 duration-300 sm:min-h-[10vh] sm:min-w-[22vw] ${
+      className={`group flex flex-col bg-white rounded-2xl p-4 text-center shadow transition-transform transform hover:shadow-xl hover:-translate-y-1 hover:scale-105 duration-300  ${
         isOutOfStock ? "opacity-50 cursor-not-allowed" : ""
       }`}
     >
