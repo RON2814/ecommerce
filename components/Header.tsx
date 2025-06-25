@@ -9,98 +9,233 @@ import {
 } from "@clerk/nextjs";
 import Link from "next/link";
 import Form from "next/form";
-import { PackageIcon, TrolleyIcon } from "@sanity/icons";
+import {
+  PackageIcon,
+  TrolleyIcon,
+  MenuIcon,
+  CloseIcon,
+  SearchIcon,
+} from "@sanity/icons";
 import useCartStore from "@/app/(store)/store/store";
+import { useState, useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 
 function Header() {
   const { user } = useUser();
+  const pathname = usePathname();
   const itemCount = useCartStore((state) =>
     state.items.reduce((total, item) => total + item.quantity, 0)
   );
+  const [isOpen, setIsOpen] = useState(false);
+  const [showSearch, setShowSearch] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const searchRef = useRef<HTMLDivElement>(null);
 
-  // passkey removed due to complexity :D
-  // const createClerkPasskey = async () => {
-  //   try {
-  //     const response = await user?.createPasskey();
-  //     console.log(response);
-  //   } catch (err) {
-  //     console.error("Error creating passkey:", JSON.stringify(err, null, 2));
-  //     alert("Failed to create passkey. Please try again.");
-  //   }
-  // };
+  const links = [
+    { name: "Home", path: "/" },
+    { name: "Products", path: "/products" },
+    { name: "About Us", path: "/about" },
+  ];
+
+  // Close menu when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+
+      if (
+        searchRef.current &&
+        !searchRef.current.contains(event.target as Node)
+      ) {
+        setShowSearch(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  // Close mobile menu when route changes
+  useEffect(() => {
+    setIsOpen(false);
+    setShowSearch(false);
+  }, [pathname]);
 
   return (
-    <header className="flex flex-wrap fixed justify-between items-center px-4 py-2 shadow-md z-20 w-screen bg-white">
-      {/* Top row */}
-      <div className="flex flex-wrap w-full justify-between items-center">
+    <header className="fixed top-0 left-0 right-0 z-[9999] w-full">
+      <nav className="flex justify-between items-center shadow-md px-4 py-2 bg-white">
         <Link
           href={"/"}
-          className="text-2xl font-bold text-slate-500 hover:opacity-50 cursor-pointer mx-auto sm:mx-0"
+          className="text-2xl font-bold text-slate-500 hover:text-blue-400 cursor-pointer mx-2"
         >
           CLift
         </Link>
-        <Form
-          action={"/search"}
-          className="w-full sm:flex-1 sm:mx-4 mt-2 sm:mt-0"
-        >
-          <input
-            type="text"
-            name="query"
-            placeholder="Search for products"
-            className="bg-slate-100 text-slate-900 px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-300 focus:opacity-50 border w-full max-w-4xl"
-          />
-        </Form>
-        <div className="flex items-center space-x-4 mt-4 sm:mt-0 flex-1 sm:flex-none">
-          <Link
-            href={"/cart"}
-            className="flex-1 relative flex justify-center sm:justify-start sm:flex-none items-center space-x-2 bg-slate-500 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded"
+
+        {/* Desktop menu */}
+        <div className="hidden md:flex space-x-8 uppercase px-4">
+          {links.map((link) => (
+            <Link
+              href={link.path}
+              className={`${
+                pathname === link.path
+                  ? "text-blue-500 underline underline-offset-8"
+                  : "text-slate-600 hover:text-blue-400"
+              } py-2 px-1 transition-colors duration-300`}
+              key={link.path}
+            >
+              {link.name}
+            </Link>
+          ))}
+        </div>
+
+        {/* Actions section */}
+        <div className="flex items-center space-x-4">
+          {/* Search button - visible on both mobile and desktop */}
+          <button
+            onClick={() => setShowSearch(!showSearch)}
+            className="text-slate-600 hover:text-blue-400 transition-colors duration-300"
+            aria-label="Search"
           >
-            <TrolleyIcon className="w-6 h-6" />
-            {/* Span item count once global state is implemented */}
+            <SearchIcon className="w-7 h-7" />
+          </button>
+
+          <Link
+            href="/cart"
+            className="relative flex items-center text-slate-600 hover:text-blue-400 transition-colors duration-300"
+          >
+            <TrolleyIcon className="w-7 h-7" />
             {itemCount > 0 && (
-              <span className="absolute -top-2 -right-4 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
+              <span className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
                 {itemCount}
               </span>
             )}
-            <span>Cart</span>
           </Link>
 
-          {/* User area */}
-          <ClerkLoaded>
-            <SignedIn>
-              <Link
-                href={"/orders"}
-                className="flex-1 relative flex justify-center sm:justify-start sm:flex-none items-center space-x-2 bg-slate-500 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded"
-              >
-                <PackageIcon className="w-6 h-6" />
-                <span>My orders</span>
-              </Link>
-            </SignedIn>
-
-            {user ? (
-              <div className="flex items-center space-x-2">
-                <UserButton />
-                <div className="hidden sm:block text-xs">
-                  <p className="text-slate-400">Welcome Back</p>
-                  <p className="font-bold">{user.fullName}!</p>
+          {/* User section - visible on desktop */}
+          <div className="hidden md:flex items-center space-x-4">
+            <ClerkLoaded>
+              {user ? (
+                <div className="flex items-center space-x-2">
+                  <UserButton />
+                  <div className="hidden sm:block text-xs">
+                    <p className="text-slate-400">Welcome Back</p>
+                    <p className="font-bold">{user.fullName}!</p>
+                  </div>
                 </div>
-              </div>
-            ) : (
-              <SignInButton />
-            )}
+              ) : (
+                <SignInButton>
+                  <button className="border border-slate-600 hover:text-blue-500 hover:border-blue-500 py-2 px-4 rounded transition-colors duration-300">
+                    Sign In
+                  </button>
+                </SignInButton>
+              )}
+              <SignedIn>
+                <Link
+                  href="/orders"
+                  className="flex items-center space-x-2 text-slate-600 border border-slate-600 hover:border-blue-500 hover:text-blue-300 py-2 px-4 rounded transition-colors duration-300"
+                >
+                  <PackageIcon className="w-5 h-5" />
+                  <span>My orders</span>
+                </Link>
+              </SignedIn>
+            </ClerkLoaded>
+          </div>
 
-            {/* Create Passkey Button */}
-            {/* {user?.passkeys.length === 0 && (
-              <button
-                onClick={createClerkPasskey}
-                className="bg-white hover:bg-slate-700 hover:text-white animate-pulse text-slate-500 font-bold py-2 px-4 rounded border-slate-300 border"
-              >
-                Create a Passkey
-              </button>
-            )} */}
-          </ClerkLoaded>
+          {/* Mobile menu button */}
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="md:hidden text-slate-600 hover:text-blue-500 transition-colors duration-300"
+          >
+            {isOpen ? (
+              <CloseIcon className="w-6 h-6" />
+            ) : (
+              <MenuIcon className="w-6 h-6" />
+            )}
+          </button>
         </div>
-      </div>
+      </nav>
+
+      {/* Search form - toggleable on both mobile and desktop */}
+      {showSearch && (
+        <div
+          ref={searchRef}
+          className="absolute top-full left-0 right-0 bg-white shadow-md p-3 z-50 transition-all duration-300 ease-in-out"
+        >
+          <Form action="/search" className="flex mx-4">
+            <input
+              type="text"
+              name="query"
+              placeholder="Search for products"
+              className="bg-slate-100 text-slate-900 px-4 py-2 rounded-l focus:outline-none focus:ring-2 focus:ring-blue-300 focus:opacity-50 border w-full"
+            />
+            <button
+              type="submit"
+              className="px-4 py-2 rounded-r border border-slate-500 hover:text-blue-500 hover:border-blue-500 transition-colors duration-300"
+            >
+              Search
+            </button>
+          </Form>
+        </div>
+      )}
+
+      {/* Mobile menu */}
+      {isOpen && (
+        <div
+          ref={menuRef}
+          className="absolute top-full left-0 right-0 bg-white shadow-md z-50"
+        >
+          <div className="flex flex-col space-y-2 py-4 px-6">
+            {links.map((link) => (
+              <Link
+                href={link.path}
+                className={`${
+                  pathname === link.path
+                    ? "text-blue-500 underline underline-offset-8"
+                    : "text-slate-600 hover:text-blue-400"
+                } py-2 transition-colors duration-300`}
+                key={link.path}
+                onClick={() => setIsOpen(false)} // Close menu on link click
+              >
+                {link.name}
+              </Link>
+            ))}
+
+            <div className="border-t border-slate-200 pt-2 mt-2 space-y-4">
+              <ClerkLoaded>
+                {user ? (
+                  <div className="flex items-center space-x-4">
+                    <UserButton />
+                    <div className="sm:hidden block text-xs">
+                      <p className="text-slate-400">Welcome Back</p>
+                      <p className="font-bold">{user.fullName}!</p>
+                    </div>
+                  </div>
+                ) : (
+                  <SignInButton>
+                    <button className="text-slate-600 hover:text-blue-400 py-2 rounded transition-colors duration-300">
+                      Sign In
+                    </button>
+                  </SignInButton>
+                )}
+
+                <SignedIn>
+                  <Link
+                    href="/orders"
+                    className="flex items-center space-x-2 border border-slate-500 text-slate-500 hover:border-blue-500 hover:text-blue-500 py-2 px-4 rounded transition-colors duration-300"
+                    onClick={() => setIsOpen(false)} // Close menu on link click
+                  >
+                    <PackageIcon className="w-5 h-5" />
+                    <span>My orders</span>
+                  </Link>
+                </SignedIn>
+              </ClerkLoaded>
+            </div>
+          </div>
+        </div>
+      )}
     </header>
   );
 }
